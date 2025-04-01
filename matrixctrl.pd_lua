@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  23:55:59 Tue Apr  1 2025 CEST
+-- $$ Last modified:  01:15:48 Wed Apr  2 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -12,7 +12,7 @@ local matrixctrl = pd.Class:new():register("matrixctrl")
 -- the base size to be multiplied by size
 local BASE_SIZE = 20
 -- mouse step-width per pixel (esp. for dial-mode)
-local MOUSE_PIXEL_STEP_WIDTH = 0.0002
+local DEFAULT_MOUSE_PIXEL_STEP_WIDTH = 0.00005
 
 function matrixctrl:initialize(sel, atoms)
    self.inlets = 1
@@ -23,6 +23,8 @@ function matrixctrl:initialize(sel, atoms)
 
    self.v_min = 0
    self.v_max = 1
+
+   self.step_width = DEFAULT_MOUSE_PIXEL_STEP_WIDTH
 
    self.size = 1.0 -- default size multiplier
 
@@ -59,6 +61,12 @@ end
 function matrixctrl:in_1_bang()
    -- TODO
    --pd.post(string.format("%s", self.size))
+end
+
+-- set step width (per pixel)
+function matrixctrl:in_1_step_width(x)
+   local val = x[1]
+   self.step_width = val
 end
 
 -- set rows
@@ -125,13 +133,25 @@ function matrixctrl:paint(g)
       do
          x = item_w*i
          y = item_h*j
-         val = self:get_data_value(i, j)
+         val = self:get_data_value(i, j) or 0
+         -- rgb color value:
+         -- inverted val because 255 is white (thus should be reversed)
+         local c_val = 255 * (1-val)
+
          g:set_color(1)
          g:stroke_ellipse(x, y, item_w, item_h, stroke_width)
-         -- TEST
-         if val == 1 then
-            g:fill_ellipse(x, y, item_w, item_h)
-         end
+         
+         g:set_color(c_val, c_val, c_val)
+         g:fill_ellipse(x, y, item_w, item_h)
+            
+         -- if val then
+         --    pd.post(tostring(val))
+         --    g:set_color(c_val, c_val, c_val)
+         --    g:fill_ellipse(x, y, item_w, item_h)
+         -- else
+         --    g:set_color(c_val)
+         --    g:fill_ellipse(x, y, item_w, item_h)
+         -- end
       end
    end
 end
@@ -151,10 +171,15 @@ function matrixctrl:mouse_down(x, y)
       local col, row = self:identify_cell(x,y)
       self:toggle_data_value(col, row)
       self:update()
+      -- output changed data
+      self:outlet(1, "list", {col, row, self:get_data_value(col, row)})
    end
 end
 
 function matrixctrl:mouse_drag(x, y)
+   -- set limits
+   
+   
    local dx = x - self.mouse_down_x
    -- invert dy, so that upwards implies positive
    local dy = (y - self.mouse_down_y) * -1
@@ -166,10 +191,11 @@ function matrixctrl:mouse_drag(x, y)
    -- when mode == 1 (dial), dial values in range
    ----------------------------------------
    if self.mode == 1 then
-      local old_val = self:get_data_value(col, row)
-      local new_val = old_val + dy * MOUSE_PIXEL_STEP_WIDTH
+      local old_val = self:get_data_value(col, row) or 0
+      local new_val = old_val + dy * self.step_width
       self:set_data_value(col, row, new_val, self.v_min, self.v_max)
       self:update()
+      self:outlet(1, "list", {col, row, self:get_data_value(col, row)})
    end
 end
 
@@ -199,7 +225,7 @@ function matrixctrl:get_data_value(col, row)
    if self.data[index] then
       return self.data[index]
    else
-      return 0
+      return false
    end
 end
 
@@ -239,7 +265,7 @@ function matrixctrl:toggle_data_value(col, row, val_a, val_b)
    if (col < self.columns) and (row < self.rows) then
       local current = self:get_data_value(col, row)
       -- fall back to val_a if test does not match
-      if current == val_a then
+      if current == val_a or current == false then
          self:set_data_value(col, row, val_b)
       else
          self:set_data_value(col, row, val_a)
