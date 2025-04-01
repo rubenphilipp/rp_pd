@@ -31,7 +31,7 @@
 #X floatatom 336 432 5 0 0 0 - - - 0;
 #X msg 220 402 4;
 #X obj 218 376 loadbang;
-#X text 406 430 change matrix/table rows and columns;
+#X text 444 443 change matrix/table rows and columns;
 #X msg 220 532 size \$1;
 #X floatatom 220 510 5 0 0 0 - - - 0;
 #X msg 221 485 1;
@@ -43,6 +43,8 @@
 #X text 275 615 set value with output;
 #X text 506 623 set value without output;
 #X text 31 234 set mode...;
+#X text 376 431 ROWS;
+#X text 260 431 COLS;
 #X connect 4 0 15 0;
 #X connect 5 0 4 0;
 #X connect 6 0 5 0;
