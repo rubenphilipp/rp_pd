@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  21:39:57 Tue Apr  1 2025 CEST
+-- $$ Last modified:  23:16:33 Tue Apr  1 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -14,12 +14,15 @@ local BASE_SIZE = 20
 
 function matrixctrl:initialize(sel, atoms)
    self.inlets = 1
-   self.outlets = 1
+   self.outlets = 2
 
    self.columns = 4 -- default value
    self.rows = 4 -- default value
 
    self.size = 1.0 -- default size multiplier
+
+   -- modes: 0 = toggle; 1 = dial (0.0-1.0)
+   self.mode = 0
 
    -- the data array
    -- the data is stored in a 1-dimensional array, read from left to right,
@@ -43,7 +46,7 @@ end
 
 -- return the box dimensions according to the current settings
 function matrixctrl:get_actual_size()
-   width, height = (self.size * self.columns * BASE_SIZE),
+   local width, height = (self.size * self.columns * BASE_SIZE),
       (self.size * self.rows * BASE_SIZE)
    return width, height
 end
@@ -69,6 +72,22 @@ function matrixctrl:in_1_columns(x)
       self.columns = val
    end
    self:update()
+end
+
+-- set mode
+-- when no value given, return the mode in second outlet
+function matrixctrl:in_1_mode(x)
+   local val = x[1]
+   if val == 1 or val == "dial" then
+      -- dial mode
+      self.mode = 1
+   elseif val == 0 or val == "toggle" then
+      -- toggle mode (always fallback)
+      self.mode = 0
+   else
+      -- return current mode in second outlet
+      self:outlet(2, "list", {"mode", self.mode})
+   end
 end
 
 -- set size
@@ -113,6 +132,25 @@ function matrixctrl:paint(g)
    --self:paint_dials(g)
 end
 
+function matrixctrl:mouse_down(x, y)
+   -- store values
+   self.mouse_down_x = x
+   self.mouse_down_y = y
+
+   local col, row = self:identify_cell(x,y)
+   self:toggle_data_value(col, row)
+   
+   self:update()
+end
+
+function matrixctrl:mouse_drag(x, y)
+   local dx = x - self.mouse_down_x
+   local dy = y - self.mouse_down_y
+   
+   pd.post(string.format("dx: %s, dy: %s", dx, dy))
+   
+end
+
 
 function matrixctrl:postreload()
    -- TODO: check if something can be cleaned up
@@ -145,7 +183,7 @@ end
 
 -- set the value of a cell
 function matrixctrl:set_data_value(col, row, val)
-   local index = self.get_data_index(col, row)
+   local index = self:get_data_index(col, row)
    -- test if in range
    if index < self.columns*self.rows then
       self.data[index] = val
@@ -158,11 +196,40 @@ function matrixctrl:set_data_value(col, row, val)
    end
 end
 
+-- toggle value of cell
+function matrixctrl:toggle_data_value(col, row, val_a, val_b)
+   -- default values
+   val_a = val_a or 0
+   val_b = val_b or 1
+   if (col < self.columns) and (row < self.rows) then
+      local current = self:get_data_value(col, row)
+      -- fall back to val_a if test does not match
+      if current == val_a then
+         self:set_data_value(col, row, val_b)
+      else
+         self:set_data_value(col, row, val_a)
+      end
+   else
+      pd.post(string.format("matrixctrl: Cell (c: %s, r: %s) is out "..
+                            "of range.", col, row))
+   end
+end
+
 -- get the array index for a cell
 function matrixctrl:get_data_index(col, row)
    return (row*self.columns)+col
 end
 
+-- identify the data coordinates by (mouse/graphics) pixel coordinates
+-- returns two values: col, row (zero-based)
+function matrixctrl:identify_cell(x, y)
+   local width, height = self:get_actual_size()
+   local cell_w = width/self.columns
+   local cell_h = height/self.rows
+   local column = math.floor(x/cell_w)
+   local row = math.floor(y/cell_h)
+   return column, row
+end
 
 --------------------------------------------------------------------------------
 -- EOF matrixctrl.pd_lua
