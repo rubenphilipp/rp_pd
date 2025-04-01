@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  23:45:18 Tue Apr  1 2025 CEST
+-- $$ Last modified:  23:55:59 Tue Apr  1 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -12,7 +12,7 @@ local matrixctrl = pd.Class:new():register("matrixctrl")
 -- the base size to be multiplied by size
 local BASE_SIZE = 20
 -- mouse step-width per pixel (esp. for dial-mode)
-local MOUSE_PIXEL_STEP_WIDTH = 0.004
+local MOUSE_PIXEL_STEP_WIDTH = 0.0002
 
 function matrixctrl:initialize(sel, atoms)
    self.inlets = 1
@@ -20,6 +20,9 @@ function matrixctrl:initialize(sel, atoms)
 
    self.columns = 4 -- default value
    self.rows = 4 -- default value
+
+   self.v_min = 0
+   self.v_max = 1
 
    self.size = 1.0 -- default size multiplier
 
@@ -131,11 +134,12 @@ function matrixctrl:paint(g)
          end
       end
    end
-   --self:paint_dials(g)
 end
 
 function matrixctrl:mouse_down(x, y)
    -- store values
+   -- these are also needed e.g. in mouse_drag,
+   -- so they need to be here (i.e. mode-agnostic)
    self.mouse_down_x = x
    self.mouse_down_y = y
 
@@ -152,15 +156,20 @@ end
 
 function matrixctrl:mouse_drag(x, y)
    local dx = x - self.mouse_down_x
-   -- negative dy, so that upwards is positive
+   -- invert dy, so that upwards implies positive
    local dy = (y - self.mouse_down_y) * -1
-
+   local col, row = self:identify_cell(self.mouse_down_x,
+                                       self.mouse_down_y)
+   
    ----------------------------------------
    -- DIAL
    -- when mode == 1 (dial), dial values in range
    ----------------------------------------
    if self.mode == 1 then
-      pd.post(string.format("dx: %s, dy: %s", dx, dy))
+      local old_val = self:get_data_value(col, row)
+      local new_val = old_val + dy * MOUSE_PIXEL_STEP_WIDTH
+      self:set_data_value(col, row, new_val, self.v_min, self.v_max)
+      self:update()
    end
 end
 
