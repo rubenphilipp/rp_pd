@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  21:38:12 Tue Apr  1 2025 CEST
+-- $$ Last modified:  21:39:57 Tue Apr  1 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -25,8 +25,6 @@ function matrixctrl:initialize(sel, atoms)
    -- the data is stored in a 1-dimensional array, read from left to right,
    -- top to bottom.  
    self.data = {}
-   self.data[1] = 1 -- TEST
-   pd.post(string.format("data: %s", table.concat(self.data)))
 
    -- TODO
    local w, h = self:get_actual_size()
@@ -139,8 +137,6 @@ end
 function matrixctrl:get_data_value(col, row)
    local index = self:get_data_index(col, row)
    if self.data[index] then
-      pd.post(string.format("col: %s, row: %s, idx: %s", col, row, col+row))
-      --pd.post(self.data[row+col])
       return self.data[index]
    else
       return 0
