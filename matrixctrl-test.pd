@@ -1,4 +1,4 @@
-#N canvas 546 193 660 672 12;
+#N canvas 546 193 727 672 12;
 #X declare -lib pdlua;
 #X msg 471 58 \; pdluax reload;
 #X obj 219 48 declare -lib pdlua;
@@ -9,7 +9,7 @@
 #X msg 199 191 4;
 #X msg 407 236 size \$1;
 #X floatatom 412 198 5 0 0 0 - - - 0;
-#X obj 216 363 matrixctrl;
+#X obj 214 363 matrixctrl;
 #N canvas 92 130 103 81 thru 0;
 #X obj 15 13 inlet;
 #X obj 15 46 outlet;

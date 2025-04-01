@@ -4,13 +4,15 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  23:16:33 Tue Apr  1 2025 CEST
+-- $$ Last modified:  23:45:18 Tue Apr  1 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
 
 -- the base size to be multiplied by size
 local BASE_SIZE = 20
+-- mouse step-width per pixel (esp. for dial-mode)
+local MOUSE_PIXEL_STEP_WIDTH = 0.004
 
 function matrixctrl:initialize(sel, atoms)
    self.inlets = 1
@@ -137,18 +139,29 @@ function matrixctrl:mouse_down(x, y)
    self.mouse_down_x = x
    self.mouse_down_y = y
 
-   local col, row = self:identify_cell(x,y)
-   self:toggle_data_value(col, row)
-   
-   self:update()
+   ----------------------------------------
+   -- TOGGLE
+   -- when mode == 0 (toggle), toggle values:
+   ----------------------------------------
+   if self.mode == 0 then
+      local col, row = self:identify_cell(x,y)
+      self:toggle_data_value(col, row)
+      self:update()
+   end
 end
 
 function matrixctrl:mouse_drag(x, y)
    local dx = x - self.mouse_down_x
-   local dy = y - self.mouse_down_y
-   
-   pd.post(string.format("dx: %s, dy: %s", dx, dy))
-   
+   -- negative dy, so that upwards is positive
+   local dy = (y - self.mouse_down_y) * -1
+
+   ----------------------------------------
+   -- DIAL
+   -- when mode == 1 (dial), dial values in range
+   ----------------------------------------
+   if self.mode == 1 then
+      pd.post(string.format("dx: %s, dy: %s", dx, dy))
+   end
 end
 
 
@@ -182,10 +195,23 @@ function matrixctrl:get_data_value(col, row)
 end
 
 -- set the value of a cell
-function matrixctrl:set_data_value(col, row, val)
+function matrixctrl:set_data_value(col, row, val,
+                                   -- optional:
+                                   val_min, val_max)
+   -- default values
+   val_min = val_min or nil
+   val_max = val_max or nil
    local index = self:get_data_index(col, row)
    -- test if in range
    if index < self.columns*self.rows then
+      -- clamp to min/max vals if given
+      if val_min and val < val_min then
+         val = val_min
+      end
+      if val_max and val > val_max then
+         val = val_max
+      end
+      
       self.data[index] = val
    else
       pd.post(string.format("matrixctrl: Index %s out of range "..
