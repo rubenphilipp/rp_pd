@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  01:15:48 Wed Apr  2 2025 CEST
+-- $$ Last modified:  01:56:27 Wed Apr  2 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -113,6 +113,34 @@ function matrixctrl:in_1_size(x)
    end
 end
 
+
+function matrixctrl:in_1_list(x)
+
+   local col = x[1]
+   local row = x[2]
+   local val = x[3]
+   
+   self:set_data_value(col, row, val)
+
+   -- output the data immediately
+   self:outlet(1, "list", {col, row, self:get_data_value(col, row)})
+
+   self:update()
+
+end
+
+-- set data without output
+function matrixctrl:in_1_set(x)
+   local col = x[1]
+   local row = x[2]
+   local val = x[3]
+   
+   self:set_data_value(col, row, val)
+
+   self:update()
+end
+
+
 -- paint
 function matrixctrl:paint(g)
    g:set_color(0)
@@ -207,6 +235,8 @@ function matrixctrl:postreload()
    self:update()
 end
 
+
+
 --------------------------------------------------------------------------------
 -- helper functions
 
@@ -233,6 +263,8 @@ end
 function matrixctrl:set_data_value(col, row, val,
                                    -- optional:
                                    val_min, val_max)
+   col = math.floor(col)
+   row = math.floor(row)
    -- default values
    val_min = val_min or nil
    val_max = val_max or nil

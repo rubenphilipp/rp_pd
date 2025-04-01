@@ -4,12 +4,12 @@
 #X text 11 5 [matrixctrl];
 #X text 14 30 A GUI object \, written in pd-lua \, similar to MaxMSP's matrixctrl. This object is aimed at controlling [cyclone/matrix~] objects (or [else/mtx~].;
 #X text 155 123 is required \, of course...;
-#X obj 23 582 matrixctrl;
+#X obj 26 784 matrixctrl;
 #N canvas 237 275 75 65 thru 0;
 #X obj 7 7 inlet;
 #X obj 7 31 outlet;
 #X connect 0 0 1 0;
-#X restore 23 504 pd thru;
+#X restore 26 756 pd thru;
 #X msg 86 304 mode \$1;
 #X msg 22 229 1;
 #X msg 83 229 s dial;
@@ -19,7 +19,7 @@
 #X msg 84 264 s toggle;
 #X msg 22 196 mode;
 #X text 62 194 \, without arg: return current mode (2nd outlet);
-#X obj 23 702 print;
+#X obj 26 904 print;
 #X floatatom 216 249 9 0 0 0 - step-width - 0;
 #X text 321 272 adjust the step width for mouse movements (in dial mode);
 #X msg 528 96 \; step-width 5e-05;
@@ -36,6 +36,12 @@
 #X floatatom 220 480 5 0 0 0 - - - 0;
 #X msg 221 455 1;
 #X text 267 480 change the general scale of the table;
+#X msg 215 592 1 3 \$1;
+#X floatatom 214 566 5 0 0 0 - - - 0;
+#X floatatom 417 567 5 0 0 0 - - - 0;
+#X msg 418 593 set 1 3 \$1;
+#X text 275 585 set value with output;
+#X text 506 593 set value without output;
 #X connect 4 0 15 0;
 #X connect 5 0 4 0;
 #X connect 6 0 5 0;
@@ -58,3 +64,7 @@
 #X connect 28 0 5 0;
 #X connect 29 0 28 0;
 #X connect 30 0 29 0;
+#X connect 32 0 5 0;
+#X connect 33 0 32 0;
+#X connect 34 0 35 0;
+#X connect 35 0 5 0;

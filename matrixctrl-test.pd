@@ -1,4 +1,4 @@
-#N canvas 546 193 727 672 12;
+#N canvas 594 158 727 672 12;
 #X declare -lib pdlua;
 #X msg 471 58 \; pdluax reload;
 #X obj 219 48 declare -lib pdlua;
@@ -9,12 +9,12 @@
 #X msg 199 191 4;
 #X msg 407 236 size \$1;
 #X floatatom 412 198 5 0 0 0 - - - 0;
-#X obj 214 363 matrixctrl;
+#X obj 220 523 matrixctrl;
 #N canvas 92 130 103 81 thru 0;
 #X obj 15 13 inlet;
 #X obj 15 46 outlet;
 #X connect 0 0 1 0;
-#X restore 216 320 pd thru;
+#X restore 214 465 pd thru;
 #X msg 412 163 1;
 #X msg 90 244 mode \$1;
 #X msg 26 169 1;
@@ -23,12 +23,16 @@
 #X text 58 204 or:;
 #X msg 27 204 0;
 #X msg 88 204 s toggle;
-#X obj 305 491 print 2nd;
-#X obj 202 492 print 1st;
+#X obj 311 651 print 2nd;
+#X obj 208 652 print 1st;
 #X msg 28 123 mode;
 #X text 80 121 without arg: return current mode;
 #X floatatom 541 204 5 0 0 0 - - - 0;
 #X msg 540 258 step_width \$1;
+#X msg 46 330 1 3 \$1;
+#X floatatom 45 288 5 0 0 0 - - - 0;
+#X floatatom 171 291 5 0 0 0 - - - 0;
+#X msg 172 333 set 1 3 \$1;
 #X connect 2 0 10 0;
 #X connect 3 0 10 0;
 #X connect 4 0 2 0;
@@ -49,3 +53,7 @@
 #X connect 21 0 10 0;
 #X connect 23 0 24 0;
 #X connect 24 0 10 0;
+#X connect 25 0 10 0;
+#X connect 26 0 25 0;
+#X connect 27 0 28 0;
+#X connect 28 0 10 0;
