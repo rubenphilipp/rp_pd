@@ -1,0 +1,11 @@
+# -*- eval: (flyspell-mode); eval: (ispell-change-dictionary "en") -*-
+#+CATEGORY: pd
+#+title: matrixctrl
+#+author: Ruben Philipp
+#+date: 2025-04-01
+#+LANGUAGE: en
+#+startup: overview
+
+This is a Pd version of MaxMSP's [matrixctrl] object written in [[https://github.com/agraef/pd-lua][pd-lua]].
+
+
