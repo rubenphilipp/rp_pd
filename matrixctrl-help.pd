@@ -1,4 +1,4 @@
-#N canvas 344 114 770 890 12;
+#N canvas 344 114 810 908 12;
 #X declare -lib pdlua;
 #X obj 16 123 declare -lib pdlua;
 #X text 11 5 [matrixctrl];

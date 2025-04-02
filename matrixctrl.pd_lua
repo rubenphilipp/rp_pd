@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  01:56:27 Wed Apr  2 2025 CEST
+-- $$ Last modified:  02:11:34 Wed Apr  2 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -14,6 +14,10 @@ local BASE_SIZE = 20
 -- mouse step-width per pixel (esp. for dial-mode)
 local DEFAULT_MOUSE_PIXEL_STEP_WIDTH = 0.00005
 
+-- max and min vals
+local VAL_MAX = 1
+local VAL_MIN = 0
+
 function matrixctrl:initialize(sel, atoms)
    self.inlets = 1
    self.outlets = 2
@@ -21,8 +25,8 @@ function matrixctrl:initialize(sel, atoms)
    self.columns = 4 -- default value
    self.rows = 4 -- default value
 
-   self.v_min = 0
-   self.v_max = 1
+   self.v_min = VAL_MIN
+   self.v_max = VAL_MAX
 
    self.step_width = DEFAULT_MOUSE_PIXEL_STEP_WIDTH
 
@@ -266,8 +270,8 @@ function matrixctrl:set_data_value(col, row, val,
    col = math.floor(col)
    row = math.floor(row)
    -- default values
-   val_min = val_min or nil
-   val_max = val_max or nil
+   val_min = val_min or VAL_MIN
+   val_max = val_max or VAL_MAX
    local index = self:get_data_index(col, row)
    -- test if in range
    if index < self.columns*self.rows then
