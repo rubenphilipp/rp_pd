@@ -7,7 +7,7 @@
 #+startup: overview
 
 #+begin_comment
-$$ Last modified:  22:48:02 Thu Apr  3 2025 CEST
+$$ Last modified:  23:33:26 Thu Apr  3 2025 CEST
 #+end_comment
 
 This is a collection of some [[https://github.com/pure-data/pure-data][Pure Data]] externals written by Ruben Philipp.
@@ -29,6 +29,8 @@ It is necessary to include the externals and pdlua in the following order:
 * Objects
 
 ** [matrixctrl]
+
+[[file:./doc/matrixctrl.svg]]
 
 This is a Pd version of MaxMSP's [matrixctrl] object written in [[https://github.com/agraef/pd-lua][pd-lua]].
 
