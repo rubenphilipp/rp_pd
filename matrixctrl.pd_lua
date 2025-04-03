@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  19:55:47 Thu Apr  3 2025 CEST
+-- $$ Last modified:  21:37:41 Thu Apr  3 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -70,9 +70,75 @@ function matrixctrl:get_actual_size()
    return width, height
 end
 
+-- flush/dump all values in the matrix (alias to flush)
 function matrixctrl:in_1_bang()
-   -- TODO
-   --pd.post(string.format("%s", self.size))
+   self:flush_data()
+end
+
+-- flush/dump all values in the matrix
+function matrixctrl:in_1_flush(ignore)
+   self:flush_data()
+end
+
+-- clear all values in the matrix
+function matrixctrl:in_1_clear(ignore)
+   self:clear_data()
+end
+
+-- get all values of row N (2nd outlet)
+function matrixctrl:in_1_getrow(n)
+   local row = n[1]
+   if not row or row >= self.rows or row < 0 then
+      pd.post(string.format("Row %s does does not exist.", row))
+      return false
+   end
+
+   local res = {}
+   for col = 0, (self.columns - 1), 1 do
+      local val = self:get_data_value(col, row) or self.v_min
+      table.insert(res, val)
+   end
+   self:outlet(2, "row", res)
+end
+
+-- get all values of column N (2nd outlet)
+function matrixctrl:in_1_getcolumn(n)
+   local col = n[1]
+   if not col or col >= self.columns or col < 0 then
+      pd.post(string.format("Column %s does does not exist.", row))
+      return false
+   end
+
+   local res = {}
+   for row = 0, (self.rows - 1), 1 do
+      local val = self:get_data_value(col, row) or self.v_min
+      table.insert(res, val)
+   end
+   self:outlet(2, "column", res)
+end
+
+-- get the value of a cell
+-- ARGS: column, row
+function matrixctrl:in_1_get(x)
+   local col = x[1]
+   local row = x[2]
+   if #x ~= 2 then
+      pd.post("Wrong number of arguments. Need: col, row (in this order).")
+      return false
+   end
+
+   local res = self:get_data_value(col, row) or self.v_min
+   self:outlet(1, "list", {col, row, res})
+end
+
+-- imports the values from an array
+function matrixctrl:in_1_import(x)
+   -- TODO!!!
+end
+
+-- exports the values as an array
+function matrixctrl:in_1_export(ignore)
+   -- TODO!!
 end
 
 -- set step width (per pixel)
@@ -482,6 +548,27 @@ function matrixctrl:validate_color_digit(val)
    else
       return false
    end
+end
+
+-- clear the data and repaint
+-- clear means set to val_min
+function matrixctrl:clear_data()
+   for i = 0, (self.columns*self.rows - 1), 1 do
+      self.data[i] = self.val_min
+   end
+   self:repaint()
+end
+
+-- flush all data, each as a list, to outlet 1
+function matrixctrl:flush_data()
+   for i = 0, (self.columns - 1), 1 do
+      for j = 0, (self.rows - 1), 1 do
+         -- return actual value or min if no value is set
+         local val = self:get_data_value(i, j) or self.v_min
+         self:outlet(1, "list", {i, j, val})
+      end
+   end
+   
 end
 
 --------------------------------------------------------------------------------
