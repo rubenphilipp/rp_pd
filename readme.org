@@ -7,10 +7,18 @@
 #+startup: overview
 
 #+begin_comment
-$$ Last modified:  22:29:24 Thu Apr  3 2025 CEST
+$$ Last modified:  22:48:02 Thu Apr  3 2025 CEST
 #+end_comment
 
 This is a collection of some [[https://github.com/pure-data/pure-data][Pure Data]] externals written by Ruben Philipp.
+
+** Usage
+
+It is necessary to include the externals and pdlua in the following order:
+
+#+begin_src pd
+[declare -lib pdlua -path rp_pd]
+#+end_src
 
 ** Requirements
 
