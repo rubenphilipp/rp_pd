@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  19:42:45 Thu Apr  3 2025 CEST
+-- $$ Last modified:  19:55:47 Thu Apr  3 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -50,7 +50,6 @@ function matrixctrl:initialize(sel, atoms)
    -- top to bottom.  
    self.data = {}
 
-   -- TODO
    local w, h = self:get_actual_size()
    self:set_size(w, h)
 
@@ -58,10 +57,9 @@ function matrixctrl:initialize(sel, atoms)
 end
 
 function matrixctrl:update()
-   -- TODO
    local w, h = self:get_actual_size()
    self:set_size(w, h)
-   -- TODO: repaint-delay (?) -> cf. hello-gui.pd_lua
+
    self:repaint()
 end
 
@@ -229,7 +227,6 @@ function matrixctrl:paint(g)
 
    ----------------------------------------
    -- PAINT DIALS
-   -- TODO: unfinished
    ----------------------------------------
    local width, height = self:get_actual_size()
    local item_w, item_h = width/self.columns, height/self.rows
@@ -318,9 +315,7 @@ end
 
 
 function matrixctrl:postreload()
-   -- TODO: check if something can be cleaned up
-   -- init for testing
-   self:initialize()
+   --self:initialize()
    self:update()
 end
 
