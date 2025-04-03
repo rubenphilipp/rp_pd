@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  18:27:31 Thu Apr  3 2025 CEST
+-- $$ Last modified:  19:00:01 Thu Apr  3 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -13,6 +13,10 @@ local matrixctrl = pd.Class:new():register("matrixctrl")
 local BASE_SIZE = 20
 -- mouse step-width per pixel (esp. for dial-mode)
 local DEFAULT_MOUSE_PIXEL_STEP_WIDTH = 0.0004
+
+-- default rgb-colors
+local DEFAULT_COLOR_OFF = {255,255,255}
+local DEFAULT_COLOR_ON = {0,0,0}
 
 -- default max and min vals
 local V_MAX = 1
@@ -27,6 +31,9 @@ function matrixctrl:initialize(sel, atoms)
 
    self.v_min = V_MIN
    self.v_max = V_MAX
+
+   self.color_off = DEFAULT_COLOR_OFF
+   self.color_on = DEFAULT_COLOR_ON
 
    self.step_width = DEFAULT_MOUSE_PIXEL_STEP_WIDTH
 
@@ -197,20 +204,22 @@ function matrixctrl:paint(g)
          x = item_w*i
          y = item_h*j
          val = self:get_data_value(i, j) or self.v_min
-         
+
+         -- scale value to range 0.0-1.0 
          local color_scaler = self:rescale_value(val,
                                                  self.v_min,
                                                  self.v_max,
                                                  0.0,
                                                  1.0)
          -- rgb color value:
-         -- inverted val because 255 is white (thus should be reversed)
-         local c_val = 255 * (1 - color_scaler)
+         local dial_color = self:interpolate_colors(color_scaler,
+                                                    self.color_off,
+                                                    self.color_on)
 
          g:set_color(1)
          g:stroke_ellipse(x, y, item_w, item_h, stroke_width)
          
-         g:set_color(c_val, c_val, c_val)
+         g:set_color(dial_color[1], dial_color[2], dial_color[3])
          g:fill_ellipse(x, y, item_w, item_h)
             
          -- if val then
@@ -381,6 +390,37 @@ function matrixctrl:rescale_value(val, min, max, new_min, new_max)
    local prop = (val - min) / range1
    local result = new_min + (prop * range2)
    return result
+end
+
+-- interpolate two values
+-- x: inteprolation value 0.0 <= x <= 1.0
+-- val_a: when x==0
+-- val_b: when x==1
+function matrixctrl:interpolate(x, val_a, val_b)
+   if x < 0.0 or x > 1.0 then
+      pd.post(string.format("Interpolation error. X (%s) must be "..
+                            ">= 0 and <= 1.", x))
+      return false
+   end
+   local diff = val_b - val_a
+   return val_a + (x * diff)
+end
+
+-- interpolate between two colors
+-- each color is a list/table of three values
+function matrixctrl:interpolate_colors(x, color_a, color_b)
+   if ((not type(color_a) == "table") and (not #color_a == 3))
+      or ((not type(color_b) == "table") and (not #color_b == 3)) then
+      pd.post("Both colors need two be a table of three values.")
+      return false
+   end
+
+   local new_color = {}
+   for i = 1, 3, 1 do
+      new_color[i] = self:interpolate(x, color_a[i], color_b[i])
+   end
+
+   return new_color
 end
 
 --------------------------------------------------------------------------------
