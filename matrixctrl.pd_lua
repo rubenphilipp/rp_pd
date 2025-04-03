@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  19:28:04 Thu Apr  3 2025 CEST
+-- $$ Last modified:  19:42:45 Thu Apr  3 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -17,6 +17,8 @@ local DEFAULT_MOUSE_PIXEL_STEP_WIDTH = 0.0004
 -- default rgb-colors
 local DEFAULT_COLOR_OFF = {255,255,255}
 local DEFAULT_COLOR_ON = {0,0,0}
+-- background-color
+local DEFAULT_COLOR_BG = {255,255,255}
 
 -- default max and min vals
 local V_MAX = 1
@@ -34,6 +36,7 @@ function matrixctrl:initialize(sel, atoms)
 
    self.color_off = DEFAULT_COLOR_OFF
    self.color_on = DEFAULT_COLOR_ON
+   self.color_bg = DEFAULT_COLOR_BG
 
    self.step_width = DEFAULT_MOUSE_PIXEL_STEP_WIDTH
 
@@ -204,10 +207,24 @@ function matrixctrl:in_1_color_on(x)
    self:repaint()
 end
 
+-- set background-color
+function matrixctrl:in_1_color_bg(x)
+   local color = self:validate_color(x)
+
+   if color then
+      self.color_bg = color
+   end
+
+   self:repaint()
+end
+
 
 -- paint
 function matrixctrl:paint(g)
-   g:set_color(0)
+   -- set background   
+   g:set_color(self.color_bg[1],
+               self.color_bg[2],
+               self.color_bg[3])
    g:fill_all()
 
    ----------------------------------------
