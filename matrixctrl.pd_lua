@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  18:15:17 Thu Apr  3 2025 CEST
+-- $$ Last modified:  18:26:13 Thu Apr  3 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -74,7 +74,10 @@ function matrixctrl:in_1_step_width(x)
 end
 
 -- set range (min/max)
+-- also clip existing values to new bounds (without output)
 function matrixctrl:in_1_range(x)
+   local old_min = self.v_min
+   local old_max = self.v_max
    local new_min = x[1]
    local new_max = x[2]
    if (type(new_min) == "number" and type(new_max) == "number")
@@ -85,6 +88,21 @@ function matrixctrl:in_1_range(x)
       pd.post("min must be < max.")
       return false
    end
+
+   -- clip values to new bounds
+   for i = 0, (self.columns*self.rows - 1), 1 do
+      local current_val = self.data[i]
+      if current_val then
+         if current_val > new_max then
+            -- clip to max
+            self.data[i] = new_max
+         elseif current_val < new_min then
+            -- clip to min
+            self.data[i] = new_min
+         end
+      end
+   end
+   
    self:repaint()
 end
 

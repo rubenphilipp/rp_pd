@@ -53,6 +53,7 @@
 #X text 706 561 min:;
 #X text 817 562 max:;
 #X text 707 540 Set value range:;
+#X text 704 657 NOTE: This also clips existing values to the new bounds (without output);
 #X connect 4 0 39 0;
 #X connect 4 1 40 0;
 #X connect 5 0 4 0;
