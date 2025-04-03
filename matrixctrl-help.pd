@@ -147,6 +147,11 @@
 #X msg 691 479 get 2 2;
 #X text 503 456 With output to 1st outlet:;
 #X text 502 562 With output to 2nd outlet:;
+#X msg 689 586 export;
+#X text 746 585 exports the data as an array.;
+#X obj 501 712 s \$0-matrixctrl;
+#X text 737 685 imports data to the table from an array. NB: - This does not clear the table before importing but overrides all first n values. - The values will be clipped to the min/max when they (positively or negatively) exceed the range.;
+#X msg 501 688 import 0 1 0 1 0 0 1 1 1 0 1;
 #X connect 4 0 28 0;
 #X connect 4 1 29 0;
 #X connect 5 0 46 0;
@@ -182,3 +187,5 @@
 #X connect 68 0 67 0;
 #X connect 69 0 67 0;
 #X connect 70 0 63 0;
+#X connect 73 0 67 0;
+#X connect 77 0 75 0;

@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  21:37:41 Thu Apr  3 2025 CEST
+-- $$ Last modified:  21:50:25 Thu Apr  3 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -132,13 +132,35 @@ function matrixctrl:in_1_get(x)
 end
 
 -- imports the values from an array
+-- does NOT clear the table before, but overrides all
+-- values starting from index 0
+-- values will be clipped when they don't fit the min/max-range
 function matrixctrl:in_1_import(x)
-   -- TODO!!!
+   local len = #x
+   for i = 0, len - 1, 1 do
+      local val = x[i+1]
+      if val > self.v_max then
+         val = self.v_max
+      elseif val < self.v_min then
+         val = self.v_min
+      end
+      
+      self.data[i] = val
+   end
+
+   self:repaint()
 end
 
 -- exports the values as an array
+-- output in 2nd outlet
 function matrixctrl:in_1_export(ignore)
-   -- TODO!!
+   local res = {}
+   for i = 0, (self.columns*self.rows - 1), 1 do
+      local val = self.data[i] or self.v_min
+      table.insert(res, val)
+   end
+
+   self:outlet(2, "export", res)
 end
 
 -- set step width (per pixel)
