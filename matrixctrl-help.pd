@@ -153,7 +153,7 @@
 #X obj 501 712 s \$0-matrixctrl;
 #X text 737 685 imports data to the table from an array. NB: - This does not clear the table before importing but overrides all first n values. - The values will be clipped to the min/max when they (positively or negatively) exceed the range.;
 #X msg 501 688 import 0 1 0 1 0 0 1 1 1 0 1;
-#N canvas 792 297 714 654 matrix~-example 1;
+#N canvas 792 297 714 654 matrix~-example 0;
 #X obj 66 175 matrixctrl;
 #X text 17 13 A simple example with [cyclone/matrix~].;
 #X obj 66 583 dac~ 1 2;
