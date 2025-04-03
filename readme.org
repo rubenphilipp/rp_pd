@@ -1,10 +1,26 @@
 # -*- eval: (flyspell-mode); eval: (ispell-change-dictionary "en") -*-
 #+CATEGORY: pd
-#+title: matrixctrl
+#+title: rp_pd
 #+author: Ruben Philipp
 #+date: 2025-04-01
 #+LANGUAGE: en
 #+startup: overview
+
+#+begin_comment
+$$ Last modified:  22:29:24 Thu Apr  3 2025 CEST
+#+end_comment
+
+This is a collection of some [[https://github.com/pure-data/pure-data][Pure Data]] externals written by Ruben Philipp.
+
+** Requirements
+
+- [[https://github.com/pure-data/pure-data][Pure Data]]
+- [[https://github.com/agraef/pd-lua][pd-lua]]
+
+
+* Objects
+
+** [matrixctrl]
 
 This is a Pd version of MaxMSP's [matrixctrl] object written in [[https://github.com/agraef/pd-lua][pd-lua]].
 
