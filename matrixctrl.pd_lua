@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  02:11:34 Wed Apr  2 2025 CEST
+-- $$ Last modified:  18:08:45 Thu Apr  3 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -12,11 +12,11 @@ local matrixctrl = pd.Class:new():register("matrixctrl")
 -- the base size to be multiplied by size
 local BASE_SIZE = 20
 -- mouse step-width per pixel (esp. for dial-mode)
-local DEFAULT_MOUSE_PIXEL_STEP_WIDTH = 0.00005
+local DEFAULT_MOUSE_PIXEL_STEP_WIDTH = 0.0004
 
--- max and min vals
-local VAL_MAX = 1
-local VAL_MIN = 0
+-- default max and min vals
+local V_MAX = 1
+local V_MIN = 0
 
 function matrixctrl:initialize(sel, atoms)
    self.inlets = 1
@@ -25,8 +25,8 @@ function matrixctrl:initialize(sel, atoms)
    self.columns = 4 -- default value
    self.rows = 4 -- default value
 
-   self.v_min = VAL_MIN
-   self.v_max = VAL_MAX
+   self.v_min = V_MIN
+   self.v_max = V_MAX
 
    self.step_width = DEFAULT_MOUSE_PIXEL_STEP_WIDTH
 
@@ -71,6 +71,17 @@ end
 function matrixctrl:in_1_step_width(x)
    local val = x[1]
    self.step_width = val
+end
+
+-- set range (min/max)
+function matrixctrl:in_1_range(x)
+   local new_min = x[1]
+   local new_max = x[2]
+   if type(new_min) == "number" and type(new_max) == "number" then
+      self.v_min = new_min
+      self.v_max = new_max
+   end
+   self:repaint()
 end
 
 -- set rows
@@ -165,10 +176,16 @@ function matrixctrl:paint(g)
       do
          x = item_w*i
          y = item_h*j
-         val = self:get_data_value(i, j) or 0
+         val = self:get_data_value(i, j) or self.v_min
+         
+         local color_scaler = self:rescale_value(val,
+                                                 self.v_min,
+                                                 self.v_max,
+                                                 0.0,
+                                                 1.0)
          -- rgb color value:
          -- inverted val because 255 is white (thus should be reversed)
-         local c_val = 255 * (1-val)
+         local c_val = 255 * (1 - color_scaler)
 
          g:set_color(1)
          g:stroke_ellipse(x, y, item_w, item_h, stroke_width)
@@ -270,8 +287,8 @@ function matrixctrl:set_data_value(col, row, val,
    col = math.floor(col)
    row = math.floor(row)
    -- default values
-   val_min = val_min or VAL_MIN
-   val_max = val_max or VAL_MAX
+   val_min = val_min or self.v_min
+   val_max = val_max or self.v_max
    local index = self:get_data_index(col, row)
    -- test if in range
    if index < self.columns*self.rows then
@@ -296,8 +313,8 @@ end
 -- toggle value of cell
 function matrixctrl:toggle_data_value(col, row, val_a, val_b)
    -- default values
-   val_a = val_a or 0
-   val_b = val_b or 1
+   val_a = val_a or self.v_min
+   val_b = val_b or self.v_max
    if (col < self.columns) and (row < self.rows) then
       local current = self:get_data_value(col, row)
       -- fall back to val_a if test does not match
@@ -326,6 +343,24 @@ function matrixctrl:identify_cell(x, y)
    local column = math.floor(x/cell_w)
    local row = math.floor(y/cell_h)
    return column, row
+end
+
+-- scale a value to a new range
+function matrixctrl:rescale_value(val, min, max, new_min, new_max)
+   new_min = new_min or 0.0
+   new_max = new_max or 1.0
+   if (min >= max) or (new_min >= max) then
+      pd.post(string.format("matrixctrl: min (%s) must be < max (%s), "..
+                            "and sim. for new_min (%s) and new_max (%s).",
+                            min, max, new_min, new_max))
+      return false 
+   end
+
+   local range1 = max - min
+   local range2 = new_max - new_min
+   local prop = (val - min) / range1
+   local result = new_min + (prop * range2)
+   return result
 end
 
 --------------------------------------------------------------------------------
