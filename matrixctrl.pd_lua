@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  18:08:45 Thu Apr  3 2025 CEST
+-- $$ Last modified:  18:15:17 Thu Apr  3 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -77,9 +77,13 @@ end
 function matrixctrl:in_1_range(x)
    local new_min = x[1]
    local new_max = x[2]
-   if type(new_min) == "number" and type(new_max) == "number" then
+   if (type(new_min) == "number" and type(new_max) == "number")
+      and (new_min < new_max) then
       self.v_min = new_min
       self.v_max = new_max
+   else
+      pd.post("min must be < max.")
+      return false
    end
    self:repaint()
 end
@@ -349,7 +353,7 @@ end
 function matrixctrl:rescale_value(val, min, max, new_min, new_max)
    new_min = new_min or 0.0
    new_max = new_max or 1.0
-   if (min >= max) or (new_min >= max) then
+   if (min >= max) or (new_min >= new_max) then
       pd.post(string.format("matrixctrl: min (%s) must be < max (%s), "..
                             "and sim. for new_min (%s) and new_max (%s).",
                             min, max, new_min, new_max))
