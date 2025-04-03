@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  19:00:01 Thu Apr  3 2025 CEST
+-- $$ Last modified:  19:28:04 Thu Apr  3 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -180,6 +180,28 @@ function matrixctrl:in_1_set(x)
    self:set_data_value(col, row, val)
 
    self:update()
+end
+
+-- set color off
+function matrixctrl:in_1_color_off(x)
+   local color = self:validate_color(x)
+
+   if color then
+      self.color_off = color
+   end
+
+   self:repaint()
+end
+
+-- set color on
+function matrixctrl:in_1_color_on(x)
+   local color = self:validate_color(x)
+
+   if color then
+      self.color_on = color
+   end
+
+   self:repaint()
 end
 
 
@@ -421,6 +443,33 @@ function matrixctrl:interpolate_colors(x, color_a, color_b)
    end
 
    return new_color
+end
+
+-- validate a color table
+function matrixctrl:validate_color(x)
+   if #x ~= 3 then
+      pd.post("Invalid color value. Color should be 3 8bit digits. ")
+      return false
+   end
+
+   for i = 1, 3, 1 do
+      if not self:validate_color_digit(x[i]) then
+         pd.post(string.format("Invalid color digit (%s).", x[i]))
+         return false
+      end
+   end
+   
+   return x
+end
+
+-- validate color value
+-- test if a value is an rgb color-value (0<=val<=255)
+function matrixctrl:validate_color_digit(val)
+   if (val >= 0) and (val <= 255) then
+      return val
+   else
+      return false
+   end
 end
 
 --------------------------------------------------------------------------------
