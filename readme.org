@@ -7,7 +7,7 @@
 #+startup: overview
 
 #+begin_comment
-$$ Last modified:  00:22:40 Sat Apr  5 2025 CEST
+$$ Last modified:  00:23:43 Sat Apr  5 2025 CEST
 #+end_comment
 
 This is a collection of some [[https://github.com/pure-data/pure-data][Pure Data]] externals written by Ruben Philipp.
@@ -38,7 +38,7 @@ This is a Pd version of MaxMSP's [matrixctrl] object written in [[https://github
 
 ** [input-strip]
 
-[[file:./doc/input-strip.png]]
+[[file:./doc/input-strip_new.png]]
 
 A channel strip for mono audio-input. 
 
