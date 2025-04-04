@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  21:50:25 Thu Apr  3 2025 CEST
+-- $$ Last modified:  02:43:41 Fri Apr  4 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -258,6 +258,25 @@ function matrixctrl:in_1_list(x)
 
    self:update()
 
+end
+
+-- set array data by index
+-- x[1]: data index (zero based)
+-- x[2]: value
+function matrixctrl:in_1_set_data(x)
+   local i = x[1]
+   local val = x[2]
+   if #x == 2 then
+      if val > self.v_max then
+         val = self.v_max
+      elseif val < self.v_min then
+         val = self.v_min
+      end
+
+      self.data[i] = val
+   end
+
+   self:repaint()
 end
 
 -- set data without output
