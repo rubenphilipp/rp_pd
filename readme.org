@@ -7,7 +7,7 @@
 #+startup: overview
 
 #+begin_comment
-$$ Last modified:  20:22:44 Fri Apr  4 2025 CEST
+$$ Last modified:  00:17:26 Sat Apr  5 2025 CEST
 #+end_comment
 
 This is a collection of some [[https://github.com/pure-data/pure-data][Pure Data]] externals written by Ruben Philipp.
@@ -35,6 +35,12 @@ It is necessary to include the externals and pdlua in the following order:
 
 This is a Pd version of MaxMSP's [matrixctrl] object written in [[https://github.com/agraef/pd-lua][pd-lua]].
 
+
+** [input-strip]
+
+[[file:./doc/input-strip.png]]
+
+A channel strip for mono audio-input.
 
 ** [midi-controller]
 
