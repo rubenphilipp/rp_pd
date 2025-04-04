@@ -7,7 +7,7 @@
 #+startup: overview
 
 #+begin_comment
-$$ Last modified:  02:25:13 Fri Apr  4 2025 CEST
+$$ Last modified:  20:22:44 Fri Apr  4 2025 CEST
 #+end_comment
 
 This is a collection of some [[https://github.com/pure-data/pure-data][Pure Data]] externals written by Ruben Philipp.
@@ -41,3 +41,7 @@ This is a Pd version of MaxMSP's [matrixctrl] object written in [[https://github
 [[file:./doc/midi-controller.png]]
 
 An abstraction for midi controller devices. 
+
+** [midi-keyboard]
+
+An abstraction for midi keyboard devices. 
