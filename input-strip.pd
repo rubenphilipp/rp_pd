@@ -267,6 +267,9 @@
 #X connect 69 0 54 1;
 #X connect 69 1 54 2;
 #X restore 274 41 pd control;
+#X text 308 705 Adapted from Michael Edwards's MaxMSP input-strip., f 43;
+#X text 308 668 AUTHOR: Ruben Philipp <me@rubenphilipp.com>;
+#X text 308 683 DATE: 2025-04-05;
 #X connect 0 0 17 0;
 #X connect 0 0 5 0;
 #X connect 0 0 52 0;
