@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  02:43:41 Fri Apr  4 2025 CEST
+-- $$ Last modified:  19:12:54 Fri Apr  4 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -261,9 +261,34 @@ function matrixctrl:in_1_list(x)
 end
 
 -- set array data by index
+-- with output.
 -- x[1]: data index (zero based)
 -- x[2]: value
-function matrixctrl:in_1_set_data(x)
+function matrixctrl:in_1_by_index(x)
+   local i = x[1]
+   local val = x[2]
+   if #x == 2 then
+      if val > self.v_max then
+         val = self.v_max
+      elseif val < self.v_min then
+         val = self.v_min
+      end
+
+      self.data[i] = val
+   end
+
+   -- TODO: output data
+   local col, row = self:get_coordinates(i)
+   self:outlet(1, "list", {col, row, val})
+
+   self:repaint()
+end
+
+-- set array data by index
+-- without output!
+-- x[1]: data index (zero based)
+-- x[2]: value
+function matrixctrl:in_1_set_by_index(x)
    local i = x[1]
    local val = x[2]
    if #x == 2 then
@@ -502,6 +527,14 @@ end
 -- get the array index for a cell
 function matrixctrl:get_data_index(col, row)
    return (row*self.columns)+col
+end
+
+-- get the coordinates for a given index
+function matrixctrl:get_coordinates(index)
+   local row = math.floor(index/self.columns)
+   local col = math.floor(index%self.columns)
+
+   return col, row
 end
 
 -- identify the data coordinates by (mouse/graphics) pixel coordinates
