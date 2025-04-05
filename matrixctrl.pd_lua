@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  19:12:54 Fri Apr  4 2025 CEST
+-- $$ Last modified:  02:44:05 Sat Apr  5 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -273,13 +273,14 @@ function matrixctrl:in_1_by_index(x)
       elseif val < self.v_min then
          val = self.v_min
       end
-
-      self.data[i] = val
    end
 
-   -- TODO: output data
    local col, row = self:get_coordinates(i)
-   self:outlet(1, "list", {col, row, val})
+   local res = self:set_data_value(col, row, val)
+
+   if res then
+      self:outlet(1, "list", {col, row, val})
+   end
 
    self:repaint()
 end
@@ -496,6 +497,7 @@ function matrixctrl:set_data_value(col, row, val,
       end
       
       self.data[index] = val
+      return true
    else
       pd.post(string.format("matrixctrl: Index %s out of range "..
                             "in a %sx%s (%s indices) matrix)",
