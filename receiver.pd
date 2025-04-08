@@ -4,9 +4,9 @@
 #X text 528 157 #1: Initial receive symbol.;
 #X text 528 85 INLETS:;
 #X text 528 109 #1: <symbol> sets new receive symbol;
-#N canvas 1165 643 183 159 receive-\$0 1;
-#X obj 50 50 r 0;
-#X obj 50 85 s out-\$2;
+#N canvas 1165 643 254 159 receive-\$0 1;
+#X obj 50 50 r 3322-from-pattr;
+#X obj 50 85 s out-3887;
 #X connect 0 0 1 0;
 #X restore 436 334 pd receive-\$0;
 #X obj 70 445 r out-\$0;
