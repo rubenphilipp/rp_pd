@@ -57,11 +57,11 @@
 #X text 105 794 remove instance index;
 #X obj 90 832 list split 1;
 #X obj 120 856 list trim;
-#X obj 181 375 t b;
-#X obj 181 395 v \$0-current-slot;
-#X obj 185 419 t f 1;
+#X obj 326 379 t b;
+#X obj 326 399 v \$0-current-slot;
+#X obj 330 423 t f 1;
 #X obj 38 366 pack f 1;
-#X obj 181 445 pack f f;
+#X obj 326 449 pack f f;
 #X obj 696 483 s \$0-this-patch;
 #X obj 707 94 else/canvas.setname \$0-this-patch 0, f 19;
 #X obj 696 420 * 12;
@@ -73,7 +73,7 @@
 #X obj 545 155 moses 1;
 #X msg 545 174 8;
 #X obj 544 218 s \$0-to-clone;
-#X obj 51 681 r \$0-to-clone;
+#X obj 26 703 r \$0-to-clone;
 #X obj 129 30 route float store clear clearall resize, f 70;
 #X obj 532 44 t b b;
 #X obj 543 133 f 8;
@@ -89,6 +89,12 @@
 #X obj 157 498 != 0;
 #X obj 109 521 spigot;
 #X obj 88 430 t b b b b;
+#X obj 226 102 preset_clip;
+#X obj 279 82 r \$0-to-clip-value;
+#X obj 226 124 t b f b, f 11;
+#X obj 252 147 s \$0-radio_rec;
+#X msg 461 254 3;
+#X text 488 254 ignore;
 #X connect 1 0 9 0;
 #X connect 2 0 9 0;
 #X connect 3 0 11 0;
@@ -162,6 +168,7 @@
 #X connect 72 0 81 0;
 #X connect 74 0 70 0;
 #X connect 75 0 82 0;
+#X connect 75 1 90 0;
 #X connect 75 4 71 0;
 #X connect 76 0 77 0;
 #X connect 76 1 38 0;
@@ -178,4 +185,10 @@
 #X connect 89 1 88 0;
 #X connect 89 2 42 0;
 #X connect 89 3 86 0;
+#X connect 90 0 92 0;
+#X connect 91 0 90 1;
+#X connect 92 0 10 0;
+#X connect 92 1 93 0;
+#X connect 92 2 5 0;
+#X connect 94 0 12 1;
 #X coords 0 0 1 1 96 12 2 370 320;
