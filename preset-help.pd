@@ -36,7 +36,7 @@
 #X coords 0 -1 1 1 45 70 2 300 100;
 #X restore 398 268 pd obj;
 #X obj 537 330 else/display;
-#X obj 586 330 else/display;
+#X obj 575 330 else/display;
 #X obj 489 363 else/display;
 #X msg 593 255 resize 16;
 #X msg 592 227 resize 8;
@@ -68,10 +68,13 @@
 #X msg 466 176 store 3;
 #X text 520 150 recall;
 #X text 520 176 store values;
+#X text 24 289 #4: preset number when cleared;
+#X obj 609 330 else/display;
 #X connect 1 0 13 0;
 #X connect 1 0 16 0;
 #X connect 1 1 14 0;
 #X connect 1 2 15 0;
+#X connect 1 3 27 0;
 #X connect 13 0 1 0;
 #X connect 17 0 1 1;
 #X connect 18 0 1 1;
