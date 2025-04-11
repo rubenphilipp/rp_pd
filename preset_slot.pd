@@ -1,4 +1,4 @@
-#N canvas 667 375 892 594 10;
+#N canvas 243 275 875 594 10;
 #X obj 30 18 inlet;
 #X obj 23 329 outlet;
 #X obj 419 131 text search \$0-current-data;
