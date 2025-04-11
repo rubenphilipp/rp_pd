@@ -1,0 +1,13 @@
+#N canvas 594 472 444 176 10;
+#X text 160 19 Clips int values to match the size of the preset object. Set size with 2nd inlet. 1st inlet receives floats., f 41;
+#X obj 34 25 inlet;
+#X obj 106 25 inlet;
+#X obj 33 125 outlet;
+#X obj 33 57 int;
+#X obj 106 57 - 1;
+#X obj 33 82 clip 0 7;
+#X connect 1 0 4 0;
+#X connect 2 0 5 0;
+#X connect 4 0 6 0;
+#X connect 5 0 6 2;
+#X connect 6 0 3 0;
