@@ -24,9 +24,8 @@
 #X obj 156 84 text size \$0-current-data;
 #X obj 156 105 != 0;
 #X obj 29 208 spigot;
-#X obj 652 101 text define -k \$0-current-data;
-#A set val1 300 \; val2 200 \; val3 100 \;;
 #X obj 494 65 text delete \$0-current-data;
+#X obj 652 101 text define \$0-current-data;
 #X connect 0 0 21 0;
 #X connect 2 0 6 0;
 #X connect 3 0 2 0;
@@ -44,7 +43,7 @@
 #X connect 12 0 10 0;
 #X connect 13 0 4 0;
 #X connect 15 0 17 0;
-#X connect 17 0 26 0;
+#X connect 17 0 25 0;
 #X connect 19 0 24 0;
 #X connect 20 0 1 0;
 #X connect 21 0 24 0;
