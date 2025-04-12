@@ -7,7 +7,7 @@
 #+startup: overview
 
 #+begin_comment
-$$ Last modified:  23:08:03 Sat Apr 12 2025 CEST
+$$ Last modified:  23:08:52 Sat Apr 12 2025 CEST
 #+end_comment
 
 This is a collection of some [[https://github.com/pure-data/pure-data][Pure Data]] externals written by Ruben Philipp.
@@ -24,6 +24,7 @@ It is necessary to include the externals and pdlua in the following order:
 
 - [[https://github.com/pure-data/pure-data][Pure Data]]
 - [[https://github.com/agraef/pd-lua][pd-lua]]
+- [[https://github.com/porres/pd-else][pd-else]]
 
 
 * Objects
