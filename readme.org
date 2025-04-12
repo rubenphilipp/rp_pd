@@ -7,7 +7,7 @@
 #+startup: overview
 
 #+begin_comment
-$$ Last modified:  23:04:01 Sat Apr 12 2025 CEST
+$$ Last modified:  23:07:15 Sat Apr 12 2025 CEST
 #+end_comment
 
 This is a collection of some [[https://github.com/pure-data/pure-data][Pure Data]] externals written by Ruben Philipp.
@@ -62,7 +62,7 @@ This is a helper to store the data of an object with a [savestate] object.
 
 [[file:./doc/presetsctrl.png]]
 
-This is a GUI for the [else/presets] object similar to MaxMSP's preset object
+This is a GUI for the ~[else/presets]~ object similar to MaxMSP's preset object
 but without actual storing facilities. It works similar to the [preset] object
 in this library but is meant to control an [else/presets] object.
 
@@ -71,11 +71,12 @@ in this library but is meant to control an [else/presets] object.
 [[file:./doc/preset.png]]
 
 This object stores the data of a connected object in various slots. The data
-must be communicated in the form of lists of the form ~[value-name value-1
-.. value-n]~.
+must be communicated in the form of lists of the form:
 
-NB: It is recommended to use the [else/presets] object in conjunction with the
-[presetsctrl] object in this library instead of [preset] for greater
+~[value-name value-1 .. value-n]~.
+
+*NB:* It is recommended to use the ~[else/presets]~ object in conjunction with
+the ~[presetsctrl]~ object in this library instead of ~[preset]~ for greater
 flexibility.  For simpler projects though this object might still be of
 interest.
 
