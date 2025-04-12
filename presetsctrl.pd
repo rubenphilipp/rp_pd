@@ -206,13 +206,14 @@
 #X restore 401 348 pd process-keys;
 #X text 447 450 default size=8;
 #X obj 23 31 route float resize n noforward, f 51;
-#N canvas 913 321 720 625 presets-messages 1;
+#X obj 375 280 v \$0-mode;
+#N canvas 913 321 720 625 other-messages 0;
 #X obj 21 17 inlet;
 #X text 116 14 deal with messages native to the [else/presets] object;
 #X obj 20 56 route load save clear, f 50;
 #X obj 315 89 s \$0-do-forward;
 #X obj 20 89 s \$0-radio;
-#N canvas 365 559 450 300 save 1;
+#N canvas 365 559 450 300 save 0;
 #X obj 16 9 inlet;
 #X obj 56 164 v \$0-mode;
 #X obj 17 53 route float;
@@ -249,8 +250,7 @@
 #X connect 2 1 5 0;
 #X connect 2 2 6 0;
 #X connect 2 3 3 0;
-#X restore 406 74 pd presets-messages;
-#X obj 375 280 v \$0-mode;
+#X restore 406 74 pd other-messages;
 #X connect 0 0 43 0;
 #X connect 8 0 25 0;
 #X connect 9 0 16 0;
@@ -283,5 +283,5 @@
 #X connect 43 2 18 0;
 #X connect 43 2 22 0;
 #X connect 43 3 26 0;
-#X connect 43 4 44 0;
+#X connect 43 4 45 0;
 #X coords 0 0 1 1 96 12 2 320 120;

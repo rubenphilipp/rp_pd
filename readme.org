@@ -7,7 +7,7 @@
 #+startup: overview
 
 #+begin_comment
-$$ Last modified:  22:31:54 Sat Apr 12 2025 CEST
+$$ Last modified:  23:04:01 Sat Apr 12 2025 CEST
 #+end_comment
 
 This is a collection of some [[https://github.com/pure-data/pure-data][Pure Data]] externals written by Ruben Philipp.
@@ -60,7 +60,7 @@ This is a helper to store the data of an object with a [savestate] object.
 
 ** [presetsctrl]
 
-
+[[file:./doc/presetsctrl.png]]
 
 This is a GUI for the [else/presets] object similar to MaxMSP's preset object
 but without actual storing facilities. It works similar to the [preset] object
