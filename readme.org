@@ -7,7 +7,7 @@
 #+startup: overview
 
 #+begin_comment
-$$ Last modified:  23:07:15 Sat Apr 12 2025 CEST
+$$ Last modified:  23:08:03 Sat Apr 12 2025 CEST
 #+end_comment
 
 This is a collection of some [[https://github.com/pure-data/pure-data][Pure Data]] externals written by Ruben Philipp.
@@ -33,7 +33,7 @@ It is necessary to include the externals and pdlua in the following order:
 #+ATTR_HTML: :width 300px
 [[file:./doc/matrixctrl.svg]]
 
-This is a Pd version of MaxMSP's [matrixctrl] object written in [[https://github.com/agraef/pd-lua][pd-lua]].
+This is a Pd version of MaxMSP's ~[matrixctrl]~ object written in [[https://github.com/agraef/pd-lua][pd-lua]].
 
 
 ** [input-strip]
@@ -56,15 +56,15 @@ An abstraction for midi keyboard devices.
 
 [[file:./doc/statepattr.png]]
 
-This is a helper to store the data of an object with a [savestate] object.
+This is a helper to store the data of an object with a ~[savestate]~ object.
 
 ** [presetsctrl]
 
 [[file:./doc/presetsctrl.png]]
 
 This is a GUI for the ~[else/presets]~ object similar to MaxMSP's preset object
-but without actual storing facilities. It works similar to the [preset] object
-in this library but is meant to control an [else/presets] object.
+but without actual storing facilities. It works similar to the ~[preset]~ object
+in this library but is meant to control an ~[else/presets]~ object.
 
 ** [preset]
 
