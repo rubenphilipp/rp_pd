@@ -7,7 +7,7 @@
 #+startup: overview
 
 #+begin_comment
-$$ Last modified:  10:31:14 Sat Apr 12 2025 CEST
+$$ Last modified:  10:32:04 Sat Apr 12 2025 CEST
 #+end_comment
 
 This is a collection of some [[https://github.com/pure-data/pure-data][Pure Data]] externals written by Ruben Philipp.
@@ -63,5 +63,5 @@ This is a helper to store the data of an object with a [savestate] object.
 [[file:./doc/preset.png]]
 
 This object stores the data of a connected object in various slots. The data
-must be communicated in the form of lists of the form \[value-name value-1
-.. value-n\].
+must be communicated in the form of lists of the form ~[value-name value-1
+.. value-n]~.
