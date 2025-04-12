@@ -1,4 +1,4 @@
-#N canvas 29 184 791 859 12;
+#N canvas 29 184 791 859 10;
 #X obj 58 110 input-strip;
 #A saved lp-freq 10000;
 #A saved hp-freq 20;
@@ -17,7 +17,7 @@
 #X obj 58 430 else/scope~ 216 114 256 3 8 -1 1 0 0 0 0 30 30 30 190 190 190 160 160 160 0 empty;
 #X obj 58 52 adc~ 1;
 #X obj 59 567 else/setdsp~;
-#X text 606 66 The state is always saved internally via [savestate]., f 23;
+#X text 606 49 The state is always saved internally via [savestate]., f 23;
 #X msg 265 75 init;
 #X text 306 74 Initialize to defaults.;
 #X obj 227 47 r \$0-ctrl;
