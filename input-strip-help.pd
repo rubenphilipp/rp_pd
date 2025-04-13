@@ -1,6 +1,6 @@
 #N canvas 784 104 791 859 10;
 #X obj 58 110 input-strip;
-#A saved -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \;;
+#A saved \\\$0-hp-freq-set 20 || \\\$0-lp-freq-set 10000 || \\\$0-post-filter-gain-set 1 || \\\$0-noise-gate-thresh-set -100 || \\\$0-attack-set 10 || \\\$0-release-set 10 || \\\$0-ratio-set 1 || \\\$0-thresh-set -10 || \\\$0-gain-set 0 || \\\$0-delay-set 0 || \\\$0-hp-on-set 1 || \\\$0-lp-on-set 0 || \\\$0-comp-on-set 0 || \; \\\$0-hp-freq-set 20 || \\\$0-lp-freq-set 10000 || \\\$0-post-filter-gain-set 1 || \\\$0-noise-gate-thresh-set -50 || \\\$0-attack-set 10 || \\\$0-release-set 10 || \\\$0-ratio-set 1 || \\\$0-thresh-set -10 || \\\$0-gain-set 0 || \\\$0-delay-set 0 || \\\$0-hp-on-set 0 || \\\$0-lp-on-set 0 || \\\$0-comp-on-set 0 || \; \\\$0-hp-freq-set 20 || \\\$0-lp-freq-set 10000 || \\\$0-post-filter-gain-set 1 || \\\$0-noise-gate-thresh-set -100 || \\\$0-attack-set 10 || \\\$0-release-set 10 || \\\$0-ratio-set 1 || \\\$0-thresh-set -10 || \\\$0-gain-set 0 || \\\$0-delay-set 0 || \\\$0-hp-on-set 0 || \\\$0-lp-on-set 0 || \\\$0-comp-on-set 0 || \; \\\$0-hp-freq-set 20 || \\\$0-lp-freq-set 10000 || \\\$0-post-filter-gain-set 1 || \\\$0-noise-gate-thresh-set -100 || \\\$0-attack-set 10 || \\\$0-release-set 10 || \\\$0-ratio-set 1 || \\\$0-thresh-set -10 || \\\$0-gain-set 0 || \\\$0-delay-set 0 || \\\$0-hp-on-set 1 || \\\$0-lp-on-set 1 || \\\$0-comp-on-set 1 || \; \\\$0-hp-freq-set 20 || \\\$0-lp-freq-set 10000 || \\\$0-post-filter-gain-set 1 || \\\$0-noise-gate-thresh-set -100 || \\\$0-attack-set 10 || \\\$0-release-set 10 || \\\$0-ratio-set 1 || \\\$0-thresh-set -10 || \\\$0-gain-set 0 || \\\$0-delay-set 0 || \\\$0-hp-on-set 1 || \\\$0-lp-on-set 1 || \\\$0-comp-on-set 0 || \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \;;
 #X text 606 16 A channel strip for mono audio-input., f 20;
 #X obj 58 462 else/scope~ 216 114 256 3 8 -1 1 0 0 0 0 30 30 30 190 190 190 160 160 160 0 empty;
 #X obj 58 52 adc~ 1;
@@ -36,6 +36,12 @@
 #X msg 352 577 gain \$1;
 #X floatatom 353 612 5 0 0 0 - - - 0;
 #X msg 353 635 delay \$1;
+#X msg 571 270 preset \$1;
+#X floatatom 571 248 5 0 0 0 - - - 0;
+#X floatatom 584 316 5 0 0 0 - - - 0;
+#X msg 584 336 preset save \$1;
+#X text 609 246 load preset;
+#X text 628 316 save preset;
 #X connect 0 0 2 0;
 #X connect 3 0 0 0;
 #X connect 6 0 0 1;
@@ -66,3 +72,7 @@
 #X connect 33 0 9 0;
 #X connect 34 0 35 0;
 #X connect 35 0 9 0;
+#X connect 36 0 9 0;
+#X connect 37 0 36 0;
+#X connect 38 0 39 0;
+#X connect 39 0 9 0;
