@@ -1,0 +1,12 @@
+# -*- eval: (flyspell-moen); eval: (ispell-change-dictionary "en") -*-
+#+CATEGORY: rp_pd
+#+title: Faust code for PureData
+#+author: Ruben Philipp
+#+date: 2025-04-14
+#+LANGUAGE: en
+#+startup: overview
+
+This directory contains [[https://faust.grame.fr][Faust]] code to be converted to Pd objects via
+~faust2puredata~.
+
+Use ~./compile.sh~ to compile all Faust externals. 

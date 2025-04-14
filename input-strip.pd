@@ -1,4 +1,4 @@
-#N canvas 183 42 1362 969 10;
+#N canvas 414 78 1362 969 10;
 #X declare -lib else -path else;
 #X obj 24 16 inlet~;
 #X obj 34 624 outlet~;
@@ -95,7 +95,7 @@
 #X text 333 185 FILTER:;
 #X obj 274 15 inlet;
 #X text 315 14 control data;
-#N canvas 651 38 758 711 control 1;
+#N canvas 651 38 758 711 control 0;
 #X obj 12 6 inlet;
 #X obj 13 104 bng 16 250 50 0 empty empty empty 0 -8 0 10 #fcfcfc #000000 #000000;
 #N canvas 43 748 99 54 thru 0;
@@ -131,7 +131,7 @@
 #X obj 17 607 s \$0-delay-set;
 #X obj 14 69 1;
 #X obj 13 35 route init reset;
-#N canvas 521 222 949 518 setters 1;
+#N canvas 521 222 949 518 setters 0;
 #X obj 24 14 inlet;
 #X obj 23 89 s \$0-lp-freq-set;
 #X obj 131 89 s \$0-hp-freq-set;
@@ -220,7 +220,7 @@
 #X floatatom 755 345 4 0 0 0 - \$0-lp-on-set - 0;
 #X floatatom 754 368 4 0 0 0 - \$0-comp-on-set - 0;
 #X obj 990 295 else/presets \\\$0-hp-freq-set \\\$0-lp-freq-set \\\$0-post-filter-gain-set \\\$0-noise-gate-thresh-set \\\$0-attack-set \\\$0-release-set \\\$0-ratio-set \\\$0-thresh-set \\\$0-gain-set \\\$0-delay-set \\\$0-hp-on-set \\\$0-lp-on-set \\\$0-comp-on-set;
-#A saved \\\$0-hp-freq-set 20 || \\\$0-lp-freq-set 10000 || \\\$0-post-filter-gain-set 1 || \\\$0-noise-gate-thresh-set -100 || \\\$0-attack-set 10 || \\\$0-release-set 10 || \\\$0-ratio-set 1 || \\\$0-thresh-set -10 || \\\$0-gain-set 0 || \\\$0-delay-set 0 || \\\$0-hp-on-set 1 || \\\$0-lp-on-set 0 || \\\$0-comp-on-set 0 || \; \\\$0-hp-freq-set 20 || \\\$0-lp-freq-set 10000 || \\\$0-post-filter-gain-set 1 || \\\$0-noise-gate-thresh-set -50 || \\\$0-attack-set 10 || \\\$0-release-set 10 || \\\$0-ratio-set 1 || \\\$0-thresh-set -10 || \\\$0-gain-set 0 || \\\$0-delay-set 0 || \\\$0-hp-on-set 0 || \\\$0-lp-on-set 0 || \\\$0-comp-on-set 0 || \; \\\$0-hp-freq-set 20 || \\\$0-lp-freq-set 10000 || \\\$0-post-filter-gain-set 1 || \\\$0-noise-gate-thresh-set -100 || \\\$0-attack-set 10 || \\\$0-release-set 10 || \\\$0-ratio-set 1 || \\\$0-thresh-set -10 || \\\$0-gain-set 0 || \\\$0-delay-set 0 || \\\$0-hp-on-set 0 || \\\$0-lp-on-set 1 || \\\$0-comp-on-set 1 || \; \\\$0-hp-freq-set 20 || \\\$0-lp-freq-set 10000 || \\\$0-post-filter-gain-set 1 || \\\$0-noise-gate-thresh-set -100 || \\\$0-attack-set 10 || \\\$0-release-set 10 || \\\$0-ratio-set 1 || \\\$0-thresh-set -10 || \\\$0-gain-set 0 || \\\$0-delay-set 0 || \\\$0-hp-on-set 1 || \\\$0-lp-on-set 1 || \\\$0-comp-on-set 1 || \; \\\$0-hp-freq-set 20 || \\\$0-lp-freq-set 10000 || \\\$0-post-filter-gain-set 1 || \\\$0-noise-gate-thresh-set -100 || \\\$0-attack-set 10 || \\\$0-release-set 10 || \\\$0-ratio-set 1 || \\\$0-thresh-set -10 || \\\$0-gain-set 0 || \\\$0-delay-set 0 || \\\$0-hp-on-set 1 || \\\$0-lp-on-set 1 || \\\$0-comp-on-set 0 || \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \;;
+#A saved \\\$0-hp-freq-set 20 || \\\$0-lp-freq-set 10000 || \\\$0-post-filter-gain-set 1 || \\\$0-noise-gate-thresh-set -100 || \\\$0-attack-set 10 || \\\$0-release-set 10 || \\\$0-ratio-set 1 || \\\$0-thresh-set -10 || \\\$0-gain-set 0 || \\\$0-delay-set 0 || \\\$0-hp-on-set 1 || \\\$0-lp-on-set 0 || \\\$0-comp-on-set 0 || \; \\\$0-hp-freq-set 20 || \\\$0-lp-freq-set 10000 || \\\$0-post-filter-gain-set 1 || \\\$0-noise-gate-thresh-set -50 || \\\$0-attack-set 10 || \\\$0-release-set 10 || \\\$0-ratio-set 1 || \\\$0-thresh-set -10 || \\\$0-gain-set 0 || \\\$0-delay-set 0 || \\\$0-hp-on-set 0 || \\\$0-lp-on-set 0 || \\\$0-comp-on-set 0 || \; \\\$0-hp-freq-set 20 || \\\$0-lp-freq-set 10000 || \\\$0-post-filter-gain-set 1 || \\\$0-noise-gate-thresh-set -100 || \\\$0-attack-set 10 || \\\$0-release-set 10 || \\\$0-ratio-set 1 || \\\$0-thresh-set -10 || \\\$0-gain-set 0 || \\\$0-delay-set 0 || \\\$0-hp-on-set 0 || \\\$0-lp-on-set 0 || \\\$0-comp-on-set 0 || \; \\\$0-hp-freq-set 20 || \\\$0-lp-freq-set 10000 || \\\$0-post-filter-gain-set 1 || \\\$0-noise-gate-thresh-set -100 || \\\$0-attack-set 10 || \\\$0-release-set 10 || \\\$0-ratio-set 1 || \\\$0-thresh-set -10 || \\\$0-gain-set 0 || \\\$0-delay-set 0 || \\\$0-hp-on-set 1 || \\\$0-lp-on-set 1 || \\\$0-comp-on-set 1 || \; \\\$0-hp-freq-set 20 || \\\$0-lp-freq-set 10000 || \\\$0-post-filter-gain-set 1 || \\\$0-noise-gate-thresh-set -100 || \\\$0-attack-set 10 || \\\$0-release-set 10 || \\\$0-ratio-set 1 || \\\$0-thresh-set -10 || \\\$0-gain-set 0 || \\\$0-delay-set 0 || \\\$0-hp-on-set 1 || \\\$0-lp-on-set 1 || \\\$0-comp-on-set 0 || \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \; -empty- \;;
 #N canvas 556 594 523 268 toggle-workaround 0;
 #X obj 17 62 s \$0-hp-on-set;
 #X obj 17 20 r \$0-hp-on;
@@ -244,12 +244,14 @@
 #X obj 422 91 loadbang;
 #X msg 422 112 0;
 #X obj 430 137 r \$0-to-presetsctrl;
+#X obj 547 223 s \$0-hp-freq;
 #X connect 0 0 17 0;
 #X connect 0 0 5 0;
 #X connect 0 0 52 0;
 #X connect 4 0 19 1;
 #X connect 5 1 17 1;
 #X connect 7 0 73 0;
+#X connect 9 0 98 0;
 #X connect 10 0 76 0;
 #X connect 12 0 25 1;
 #X connect 13 0 20 0;
