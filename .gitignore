@@ -91,7 +91,22 @@ Temporary Items
 ## Faust
 
 faust/faust.*
+
+# exclude binaries
+*.pd_linux
+*.l_i386
+*.l_amd64
+*.l_arm
+*.l_arm64
 *.pd_darwin
+*.d_fat
+*.d_ppc
+*.d_i386
+*.d_amd64
+*.d_arm64
+*.dll
+*.m_i386
+*.m_amd64
 
 ################################################################################
 ## EOF .gitignore
