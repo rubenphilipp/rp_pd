@@ -7,7 +7,7 @@
 #+startup: overview
 
 #+begin_comment
-$$ Last modified:  20:30:50 Mon Apr 14 2025 CEST
+$$ Last modified:  20:49:27 Mon Apr 14 2025 CEST
 #+end_comment
 
 This is a collection of some [[https://github.com/pure-data/pure-data][Pure Data]] externals written by Ruben Philipp.
@@ -95,3 +95,6 @@ flexibility.  For simpler projects though this object might still be of
 interest.
 
 
+** [faust/limiter~]
+
+This is a Pd version of the Faust (co.)limiter_lad_mono lookahead limiter.
