@@ -9,4 +9,4 @@
 This directory contains [[https://faust.grame.fr][Faust]] code to be converted to Pd objects via
 ~faust2puredata~.
 
-Use ~./compile.sh~ to compile all Faust externals. 
+It is recommended to use ~./compile.sh~ in order to compile all Faust externals.
