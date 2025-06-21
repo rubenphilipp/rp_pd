@@ -7,7 +7,7 @@
 #+startup: overview
 
 #+begin_comment
-$$ Last modified:  20:49:27 Mon Apr 14 2025 CEST
+$$ Last modified:  00:40:21 Sun Jun 22 2025 CEST
 #+end_comment
 
 This is a collection of some [[https://github.com/pure-data/pure-data][Pure Data]] externals written by Ruben Philipp.
@@ -38,6 +38,8 @@ cd faust
 - [[https://github.com/pure-data/pure-data][Pure Data]]
 - [[https://github.com/agraef/pd-lua][pd-lua]]
 - [[https://github.com/porres/pd-else][pd-else]]
+- [[https://leomccormack.github.io/sparta-site/][SPARTA VST]] plugins
+  - for =ambiencode~=
 
 
 * Objects
@@ -94,6 +96,16 @@ the ~[presetsctrl]~ object in this library instead of ~[preset]~ for greater
 flexibility.  For simpler projects though this object might still be of
 interest.
 
+
+** [ambienc~ ...]
+
+A higher order ambisonics encoder based on SPARTA VST.
+
+This object is based on the sparta_ambiENC VST plugin from the SPARTA plugin
+suite. Thus it requires both the \[vstplugin~\] external as well as the SPARTA
+VSTs installed on this system.
+
+NB: This plugin only accepts and returns multi-channel signals. 
 
 ** [faust/limiter~]
 
