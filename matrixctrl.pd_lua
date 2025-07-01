@@ -4,7 +4,7 @@
 --              Requires pd-lua. 
 -- Author: Ruben Philipp <me@rubenphilipp.com>
 -- Created: 2025-04-01
--- $$ Last modified:  02:44:05 Sat Apr  5 2025 CEST
+-- $$ Last modified:  01:51:04 Wed Jul  2 2025 CEST
 --------------------------------------------------------------------------------
 
 local matrixctrl = pd.Class:new():register("matrixctrl")
@@ -633,6 +633,7 @@ function matrixctrl:clear_data()
       self.data[i] = self.val_min
    end
    self:repaint()
+   self:flush_data()
 end
 
 -- flush all data, each as a list, to outlet 1
