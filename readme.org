@@ -10,6 +10,16 @@
 $$ Last modified:  00:40:21 Sun Jun 22 2025 CEST
 #+end_comment
 
+* This Repository Has Moved!
+
+This repository has been moved to Codeberg in February 2026. 
+
+You'll find it here: https://codeberg.org/rubenphilipp/rp_pd
+
+-----
+
+** Description
+
 This is a collection of some [[https://github.com/pure-data/pure-data][Pure Data]] externals written by Ruben Philipp.
 
 ** Usage
